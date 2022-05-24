@@ -1,106 +1,133 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SlotMachine
 {
     public class SlotMachineController : AbstractSlotMachineController
     {
-        [SerializeField] private int countRows;
-        [SerializeField] private int countColuns;
-
         private Cell[,] cells;
 
-        private int countSlot;
+        private int countAllSlot;
+        private float curentDurationTurn;
 
         private void Awake()
         {
             model.InitDictionary();
-            countSlot = Enum.GetValues(typeof(AllSlot)).Length;
-            cells = new Cell[countRows, countColuns];
-        }
-        private void Start()
-        {
-
+            view.Init(dataModel);
+            countAllSlot = Enum.GetValues(typeof(AllTypeSlot)).Length - 1;
+            cells = new Cell[model.CountRows, model.CountColuns];
         }
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A))
-                StartTurn();
+            TurnDuration();
+            print(TimerTurn(ref curentDurationTurn));
         }
-        public void StartTurn()
+
+        public override void StartTurn()
         {
-            if (dataModel.PlayerMoney - dataModel.PlayerBet >= 0)
+            if (dataModel.CanTurn)
             {
-                view.StartTurn();
-                GenerateSlot();
+                print("start;");
+                curentDurationTurn = model.DurationTurn;
+                dataModel.IsTurn = true;
+                AnimationPlay();
+                GenerateSlots();
+                TurnDuration();
             }
         }
-        private void GenerateSlot()
+        protected override void GenerateSlots() => new GenerateCells(cells, countAllSlot, model);
+        private void TurnDuration()
         {
-            for (int y = 0; y < countColuns; y++)
+            if (!dataModel.IsTurn)
+                return;
+            print("duration;");
+            if (!TimerTurn(ref curentDurationTurn))
             {
-                var firstSlot = UnityEngine.Random.Range(0, countSlot);
+                print("timeroff;");
 
-                for (int x = 0; x < countRows; x++)
-                {
-                    if (firstSlot >= countSlot)
-                        firstSlot = 0;
-
-                    var cell = new Cell(x, y, GenerateSlot((AllSlot)firstSlot));
-                    firstSlot++;
-                    cells[x, y] = cell;
-                    print($"x {x} y {y} price {cells[x, y].Model.PriceSlot}"); // проверка
-                }
+                AnimationStop();
+                CheckResultTurn();
             }
-            ResultTurn();
         }
-        private void ResultTurn()
+
+        #region ResultGame
+        /// <summary>
+        /// Проверка выйгрыша.
+        /// </summary>
+        protected override void CheckResultTurn()
         {
-            var isWin = false;
-            var countWin = 0;
             var winModels = new AbstractSlotModel[checkModels.Length];
+            var countWin = 0;
 
             for (int i = 0; i < checkModels.Length; i++)
             {
-                for (int j = 0; j < countColuns - 1; j++)
+                for (int g = 0; g < model.CountColuns - 1; g++)
                 {
-                    isWin = cells[checkModels[i].CheckRow[j], checkModels[i].CheckColuns[j]].Model.TypeSlot ==
-                      cells[checkModels[i].CheckRow[j + 1], checkModels[i].CheckColuns[j + 1]].Model.TypeSlot;
+                    var curentVector = checkModels[i].CheckCells[g];
+                    var nextVector = checkModels[i].CheckCells[g + 1];
+                    var isWin = cells[(int)curentVector.x, (int)curentVector.y].Model.TypeSlot ==
+                        cells[(int)nextVector.x, (int)nextVector.y].Model.TypeSlot;
 
                     if (isWin)
-                        winModels[i] = cells[checkModels[i].CheckRow[j], checkModels[i].CheckColuns[j]].Model;
+                        winModels[i] = cells[(int)curentVector.x, (int)curentVector.y].Model;
                     else
                     {
                         winModels[i] = null;
                         break;
                     }
                 }
-                if (isWin)
+                if (winModels[i] != null)
                 {
-                    print(isWin);       //check
                     countWin++;
                     Win(winModels);
                 }
             }
-            if (countWin <= 0)
+            if (countWin == 0)
                 Lose();
+            dataModel.IsTurn = false;
         }
-        private void Win(params AbstractSlotModel[] model)
+        private void Win(AbstractSlotModel[] model)
         {
-            foreach (var item in model)
+            foreach (var slot in model)
             {
-                view.Win(item.PriceSlot);
-                dataModel.PlayerMoney = item.PriceSlot * dataModel.PlayerBet;
+                print($"{slot} цена {slot.PriceSlot}  {slot.TypeSlot}");
+
+
+                var winAmount = slot.PriceSlot * dataModel.PlayerBet;
+                view.WinView(winAmount);
+                dataModel.PlayerMoney += winAmount;
+                print(cells[1, 1].Model.TypeSlot + " " + winAmount);
             }
         }
         private void Lose()
         {
-            view.Lose(dataModel.PlayerBet);
+            view.LoseView();
             dataModel.PlayerMoney -= dataModel.PlayerBet;
         }
+        #endregion
 
-        private AbstractSlotModel GenerateSlot(AllSlot slot) => model.SlotDictionary[slot];
+        #region Animation
+        private void AnimationPlay()
+        {
+            foreach (var item in animationViews)
+                item.AnimationPlay();
+        }
+        private void AnimationStop()
+        {
+            for (int i = 0; i < model.CountColuns; i++)
+            {
+                animationViews[i].AnimationStop(cells[i, 0]);
+                print(cells[i, 0].Model.TypeSlot + " " + i);
+            }
+        }
+        #endregion
+
+        private bool TimerTurn(ref float duration)
+        {
+            if (duration <= 0)
+                return false;
+            duration -= Time.deltaTime;
+            return true;
+        }
     }
 }

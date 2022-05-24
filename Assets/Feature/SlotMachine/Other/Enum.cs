@@ -1,13 +1,14 @@
 namespace SlotMachine
 {
     /// <summary>
-    /// Все слоты.
+    /// Все типы слотов.
     /// </summary>
-    public enum AllSlot
+    public enum AllTypeSlot
     {
+        Null = -1, 
         One,
         Two,
         Three,
-        Four
+        Four,
     }
 }

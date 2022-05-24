@@ -11,11 +11,11 @@ namespace SlotMachine
         [Tooltip("Стоимость слота.")]
         [SerializeField] private int priceSlot;
         [Tooltip("Тип слота.")]
-        [SerializeField]private AllSlot typeSlot;
+        [SerializeField]private AllTypeSlot typeSlot;
 
         public override Sprite SpriteSlot => spriteSlot;
         public override int PriceSlot => priceSlot;
-        public override AllSlot TypeSlot => typeSlot;
+        public override AllTypeSlot TypeSlot => typeSlot;
     }
 
 }

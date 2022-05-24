@@ -6,6 +6,6 @@ namespace SlotMachine
     {
         public abstract Sprite SpriteSlot { get; }
         public abstract int PriceSlot { get; }
-        public abstract AllSlot TypeSlot { get; }
+        public abstract AllTypeSlot TypeSlot { get; }
     }
 }

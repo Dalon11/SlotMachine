@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf3d140474952148975abbaf2ee798a, type: 3}
   m_Name: SlotModel 2
   m_EditorClassIdentifier: 
-  spriteSlot: {fileID: 21300000, guid: 5998fe3c659566044add3d4db3d49be1, type: 3}
+  spriteSlot: {fileID: 21300000, guid: e8801d313898667469da1d024f9bbd98, type: 3}
   priceSlot: 2
   typeSlot: 1

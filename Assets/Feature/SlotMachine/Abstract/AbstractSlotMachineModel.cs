@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +5,12 @@ namespace SlotMachine
 {
     public abstract class AbstractSlotMachineModel : ScriptableObject
     {
-        protected Dictionary<AllSlot, AbstractSlotModel> slotDictionary;
-        public Dictionary<AllSlot, AbstractSlotModel> SlotDictionary => slotDictionary;
+        protected Dictionary<AllTypeSlot, AbstractSlotModel> slotDictionary;
+        public Dictionary<AllTypeSlot, AbstractSlotModel> SlotDictionary => slotDictionary;
+
+        public abstract float DurationTurn { get; }
+        public abstract int CountRows { get; }
+        public abstract int CountColuns { get; }
 
         /// <summary>
         /// Заполнение словаря.

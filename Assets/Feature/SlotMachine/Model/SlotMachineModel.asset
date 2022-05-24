@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b467d10d4282c42aee09117a215308, type: 3}
   m_Name: SlotMachineModel
   m_EditorClassIdentifier: 
+  defaultDurationTurn: 2
+  countRows: 3
+  countColuns: 3
   slots:
   - status: 0
     statusBlock: {fileID: 11400000, guid: 7dd801cf087dfa54cbf68d9e62182e04, type: 2}
