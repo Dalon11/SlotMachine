@@ -21,8 +21,6 @@ namespace SlotMachine
                         firstSlot = countAllSlot-1;
                     cells[x, y] = new Cell(x, y, model.SlotDictionary[(AllTypeSlot)firstSlot]);
                     firstSlot--;
-
-                    Debug.LogWarning($"x {x} y {y} price {cells[x, y].Model.PriceSlot} type {cells[x, y].Model.TypeSlot}"); // проверка
                 }
             }
         }

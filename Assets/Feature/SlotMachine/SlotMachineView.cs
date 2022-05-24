@@ -32,7 +32,6 @@ namespace SlotMachine
             this.dataModel = dataModel;
             dataModel.onChangePlayerMoneyText += TextPlayerMoney;
             dataModel.onChangePlayerBetText += TextPlayerBet;
-
         }
         private void OnDestroy()
         {

@@ -17,17 +17,12 @@ namespace SlotMachine
             countAllSlot = Enum.GetValues(typeof(AllTypeSlot)).Length - 1;
             cells = new Cell[model.CountRows, model.CountColuns];
         }
-        private void Update()
-        {
-            TurnDuration();
-            print(TimerTurn(ref curentDurationTurn));
-        }
+        private void Update() => TurnDuration();
 
         public override void StartTurn()
         {
             if (dataModel.CanTurn)
             {
-                print("start;");
                 curentDurationTurn = model.DurationTurn;
                 dataModel.IsTurn = true;
                 AnimationPlay();
@@ -40,11 +35,8 @@ namespace SlotMachine
         {
             if (!dataModel.IsTurn)
                 return;
-            print("duration;");
             if (!TimerTurn(ref curentDurationTurn))
             {
-                print("timeroff;");
-
                 AnimationStop();
                 CheckResultTurn();
             }
@@ -90,13 +82,9 @@ namespace SlotMachine
         {
             foreach (var slot in model)
             {
-                print($"{slot} цена {slot.PriceSlot}  {slot.TypeSlot}");
-
-
                 var winAmount = slot.PriceSlot * dataModel.PlayerBet;
                 view.WinView(winAmount);
                 dataModel.PlayerMoney += winAmount;
-                print(cells[1, 1].Model.TypeSlot + " " + winAmount);
             }
         }
         private void Lose()
@@ -115,10 +103,7 @@ namespace SlotMachine
         private void AnimationStop()
         {
             for (int i = 0; i < model.CountColuns; i++)
-            {
                 animationViews[i].AnimationStop(cells[i, 0]);
-                print(cells[i, 0].Model.TypeSlot + " " + i);
-            }
         }
         #endregion
 

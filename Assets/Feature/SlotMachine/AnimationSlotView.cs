@@ -7,22 +7,11 @@ namespace SlotMachine
         private Animator animator;
         AllTypeSlot typeSlot = AllTypeSlot.Null;
 
-        private void Awake()
-        {
-            animator = GetComponent<Animator>();    
-        }
-        private void Start()
-        {
-            animator.speed = 0;
-        }
-        public override void AnimationPlay()
-        {
-            animator.speed = 1;
-        }
-        public override void AnimationStop(Cell cellX)
-        {
-            typeSlot = cellX.Model.TypeSlot;
-        }
+        private void Awake() => animator = GetComponent<Animator>();
+        private void Start() => AnimationChangeSpeed(false);
+
+        public override void AnimationPlay() => AnimationChangeSpeed(true);
+        public override void AnimationStop(Cell cellX) => typeSlot = cellX.Model.TypeSlot;
         /// <summary>
         /// Ивент остановки анимации.
         /// </summary>
@@ -31,9 +20,10 @@ namespace SlotMachine
         {
             if (this.typeSlot == typeSlot)
             {
-                animator.speed = 0;
+                AnimationChangeSpeed(false);
                 this.typeSlot = AllTypeSlot.Null;
             }
         }
+        private void AnimationChangeSpeed(bool isPlay) => animator.speed = isPlay ? 1 : 0;
     }
 }

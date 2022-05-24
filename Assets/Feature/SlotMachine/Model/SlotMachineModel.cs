@@ -25,7 +25,6 @@ namespace SlotMachine
 
         public override int CountRows => countRows;
         public override int CountColuns => countColuns;
-
         public override float DurationTurn => durationTurn;
 
         public override void InitDictionary() => slotDictionary = slots.ToDictionary(key => key.status, value => value.statusBlock);
