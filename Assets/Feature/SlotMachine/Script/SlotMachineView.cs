@@ -39,12 +39,12 @@ namespace SlotMachine
         {
             foreach (var text in textPlayerWin)
                 text.text = countWin.ToString();
-        }       
-        private void TextCheckLine(int countLine) 
+        }
+        private void TextCheckLine(int countLine)
         {
             textCheckLine.text = countLine.ToString();
             SetCheckLines(countLine);
-        } 
+        }
 
         private void SetCheckLines(int countLine)
         {
@@ -62,13 +62,12 @@ namespace SlotMachine
         public override void LoseView()
         {
             TextPlayerWin(0);
-            Debug.Log(dataModel.IsGameOver);
             if (dataModel.IsGameOver)
                 GameOver();
         }
         public void GameOver()
-        {           
-                panelGameOver.SetActive(true);
+        {
+            panelGameOver.SetActive(true);
             panelGameButton.SetActive(false);
         }
 
