@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b467d10d4282c42aee09117a215308, type: 3}
+  m_Name: SlotMachineModel
+  m_EditorClassIdentifier: 
+  countRows: 3
+  countColuns: 5
+  minCountLine: 1
+  maxCountLine: 9
+  minCountSlotInWin: 3
+  durationTurn: 1
+  countLine: 1
+  slots:
+  - status: 0
+    statusBlock: {fileID: 11400000, guid: 7dd801cf087dfa54cbf68d9e62182e04, type: 2}
+  - status: 1
+    statusBlock: {fileID: 11400000, guid: d327e836bc6d7734aa50c2785235ddee, type: 2}
+  - status: 2
+    statusBlock: {fileID: 11400000, guid: a5676bb86d63cbe4a886b21813d1ead2, type: 2}
+  - status: 3
+    statusBlock: {fileID: 11400000, guid: 5830a8e20285de042a8ca7b1c5fc020e, type: 2}
