@@ -17,8 +17,7 @@ MonoBehaviour:
   minCountLine: 1
   maxCountLine: 9
   minCountSlotInWin: 3
-  durationTurn: 1
-  countLine: 1
+  durationTurn: 0.8
   slots:
   - status: 0
     statusBlock: {fileID: 11400000, guid: 7dd801cf087dfa54cbf68d9e62182e04, type: 2}

@@ -33,7 +33,7 @@ namespace SlotMachine
         public override float DurationTurn => durationTurn;
 
         public override event Action<int> onChangeCountLine = delegate { };
-        [SerializeField] private int countLine;
+        private int countLine;
         public override int CountLine
         {
             get => countLine;

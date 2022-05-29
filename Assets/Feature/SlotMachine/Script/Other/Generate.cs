@@ -21,9 +21,6 @@ namespace SlotMachine
                         firstSlot = countAllSlot - 1;
                     cells[x, y] = new Cell(x, y, model.SlotDictionary[(AllTypeSlot)firstSlot]);
                     firstSlot--;
-#if UNITY_EDITOR
-                    Debug.LogWarning($"x={x} y={y}; type: {cells[x, y].Model.TypeSlot}");
-#endif
                 }
             }
         }

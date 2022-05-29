@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c9e88e900de11245875c832b6d098f7, type: 3}
   m_Name: PlayerDataModel
   m_EditorClassIdentifier: 
-  defaultPlayerMoney: 100
+  defaultPlayerMoney: 1000
   defaultPlayerBet: 100

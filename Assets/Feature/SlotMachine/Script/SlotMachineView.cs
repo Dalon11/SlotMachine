@@ -6,12 +6,13 @@ namespace SlotMachine
 {
     public class SlotMachineView : AbstractSlotMachineView
     {
-        [Header("Поля текста.")]
+        [Header("Тексты.")]
         [SerializeField] private TextMeshProUGUI textPlayerMoney;
         [SerializeField] private TextMeshProUGUI textPlayerBet;
         [SerializeField] private TextMeshProUGUI textCheckLine;
         [SerializeField] private TextMeshProUGUI[] textPlayerWin;
         [Space]
+        [Header("Панели.")]
         [SerializeField] private GameObject panelWin;
         [SerializeField] private GameObject panelGameOver;
         [SerializeField] private GameObject panelGameButton;

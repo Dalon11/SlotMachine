@@ -65,10 +65,6 @@ namespace SlotMachine
         }
         private void Win(int[] winPrices)
         {
-#if UNITY_EDITOR
-            for (int i = 0; i < winPrices.Length; i++)
-                Debug.Log($"выйгрыш*{winPrices[i]} линия{i}");
-#endif
             var winAmount = 0;
             foreach (var price in winPrices)
                 winAmount += price * dataModel.PlayerBet;
@@ -91,12 +87,7 @@ namespace SlotMachine
         private void AnimationStop()
         {
             for (int i = 0; i < model.CountColuns; i++)
-            {
                 animationViews[i].AnimationStop(cells[i, 0]);
-#if UNITY_EDITOR
-                Debug.LogWarning($"stop cell: x={i}, y=0 - {cells[i, 0].Model.TypeSlot}");
-#endif
-            }
         }
         #endregion
 
