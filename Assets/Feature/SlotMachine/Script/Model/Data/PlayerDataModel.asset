@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerDataModel
   m_EditorClassIdentifier: 
   defaultPlayerMoney: 1000
-  defaultPlayerBet: 100
+  defaultMinPlayerBet: 100

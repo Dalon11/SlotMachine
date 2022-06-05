@@ -16,6 +16,7 @@ namespace SlotMachine
         [SerializeField] private GameObject panelWin;
         [SerializeField] private GameObject panelGameOver;
         [SerializeField] private GameObject panelGameButton;
+        [SerializeField] private GameObject panelBonus;
         [Space]
         [Header("Линии выигрыша.")]
         [SerializeField] private GameObject[] checkLines;
@@ -30,9 +31,26 @@ namespace SlotMachine
             TextCheckLine(model.CountLine);
         }
 
-        public void ButtonLine(int countLine) => model.CountLine += countLine;
-        public void ButtonBet(int countBet) => dataModel.PlayerBet += countBet;
+        public void ButtonLine(int countLine)
+        {
+            if (!dataModel.IsTurn)
+                model.CountLine += countLine;
+        }
+        public void ButtonBet(int countBet)
+        {
+            if (!dataModel.IsTurn)
+                dataModel.PlayerBet += countBet;
+        }
+
         public void ButtonMenu(int indexScene) => SceneManager.LoadScene(indexScene);
+        public void ButtonBonus()
+        {
+            if (!dataModel.IsTurn)
+            {
+                panelBonus.SetActive(true);
+                panelGameButton.SetActive(false);
+            }               
+        }
 
         private void TextPlayerMoney(int countMoney) => textPlayerMoney.text = countMoney.ToString();
         private void TextPlayerBet(int countBet) => textPlayerBet.text = countBet.ToString();

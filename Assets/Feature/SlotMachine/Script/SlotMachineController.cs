@@ -14,9 +14,13 @@ namespace SlotMachine
         private int countAllSlot;
         private float curentDurationTurn;
 
-        private void Awake() => Init();
+        private void Awake()
+        {
+            Init();
+            model.onChangeCountLine += ControllMniBet;
+        }
         private void Start()
-        {            
+        {
             cells = new Cell[model.CountColuns, model.CountRows];
             countAllSlot = Enum.GetValues(typeof(AllTypeSlot)).Length - 1;
         }
@@ -50,7 +54,7 @@ namespace SlotMachine
         /// </summary>
         protected override void CheckResultTurn()
         {
-            var winPrices = check.TypeCell(cells, checkResultModels, model.CountLine, model);
+            float[] winPrices = check.TypeCell(cells, checkResultModels, model);
             var count = 0;
             foreach (var price in winPrices)
             {
@@ -63,11 +67,11 @@ namespace SlotMachine
                 Lose();
             dataModel.IsTurn = false;
         }
-        private void Win(int[] winPrices)
+        private void Win(float[] winPrices)
         {
             var winAmount = 0;
             foreach (var price in winPrices)
-                winAmount += price * dataModel.PlayerBet;
+                winAmount += Mathf.RoundToInt(price * dataModel.PlayerBet);
             dataModel.PlayerMoney += winAmount;
             view.WinView(winAmount);
         }
@@ -104,6 +108,12 @@ namespace SlotMachine
                 return false;
             curentDurationTurn -= Time.deltaTime;
             return true;
+        }
+        private void ControllMniBet(int countLine) => dataModel.MinPlayerBet = countLine * 100;
+
+        private void OnDestroy()
+        {
+            model.onChangeCountLine -= ControllMniBet;
         }
     }
 }

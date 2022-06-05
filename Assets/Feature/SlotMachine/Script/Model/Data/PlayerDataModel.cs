@@ -8,14 +8,14 @@ namespace SlotMachine
     {
         [Tooltip("Количство денег.")]
         [SerializeField] private int defaultPlayerMoney;
-        [Tooltip("Ставка.")]
-        [SerializeField] private int defaultPlayerBet;
+        [Tooltip("Начальная ставка.")]
+        [SerializeField] private int defaultMinPlayerBet;
 
 
         private void OnEnable()
         {
             PlayerMoney = defaultPlayerMoney;
-            PlayerBet = defaultPlayerBet;
+            PlayerBet = MinPlayerBet = defaultMinPlayerBet;
             IsTurn = false;
         }
 
@@ -38,14 +38,25 @@ namespace SlotMachine
             get => playerBet;
             set
             {
-                playerBet = Mathf.Clamp(value, 0, int.MaxValue);
+                playerBet = Mathf.Clamp(value, MinPlayerBet, PlayerMoney);
                 onChangePlayerBetText?.Invoke(playerBet);
+            }
+        }
+
+        private int minPlayerBet;
+        public override int MinPlayerBet
+        {
+            get => minPlayerBet;
+            set
+            {
+                minPlayerBet = Mathf.Clamp(value, 0, int.MaxValue);
+                PlayerBet = PlayerBet;
             }
         }
 
         public override bool IsTurn { get; set; }
         public override bool CanTurn => !IsGameOver && !IsTurn && playerBet > 0 && (playerMoney - playerBet) >= 0;
         public override bool IsGameOver => playerMoney <= 0;
-        
+
     }
 }

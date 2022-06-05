@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class OpenURL : MonoBehaviour
 {
-    public void ButtonOpenURL(string url) 
+    [Header("—сылка.")]
+    [SerializeField] private string url;
+
+    public void ButtonOpenURL() 
     {
         Application.OpenURL(url);
     }

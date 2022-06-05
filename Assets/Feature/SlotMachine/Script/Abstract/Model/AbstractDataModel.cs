@@ -10,6 +10,7 @@ namespace SlotMachine
 
         public abstract event Action<int> onChangePlayerBetText;
         public abstract int PlayerBet { get; set; }
+        public abstract int MinPlayerBet { get; set; }
 
         public abstract bool IsTurn { get; set; }
         public abstract bool CanTurn { get; }

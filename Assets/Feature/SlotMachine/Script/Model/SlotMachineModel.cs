@@ -26,7 +26,6 @@ namespace SlotMachine
             CountLine = minCountLine;
         }
 
-
         public override int CountRows => countRows;
         public override int CountColuns => countColuns;
         public override int MinCountSlotInWin => minCountSlotInWin;

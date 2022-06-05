@@ -12,17 +12,17 @@ namespace SlotMachine
         /// <param name="countLine"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public int[] TypeCell(Cell[,] cells, AbstractCheckResultModel[] checkModel, int countLine, AbstractSlotMachineModel model)
+        public float[] TypeCell(Cell[,] cells, AbstractCheckResultModel[] checkModel, AbstractSlotMachineModel model)
         {
-            var winPrices = new int[countLine];
+            var winPrices = new float[model.CountLine];
             var countTypeCellInLine = new Dictionary<AllTypeSlot, int>();
 
-            for (int i = 0; i < countLine; i++)
+            for (int i = 0; i < model.CountLine; i++)
             {
-                for (int j = 0; j < model.CountColuns; j++)
+                for (int x = 0; x < model.CountColuns; x++)
                 {
-                    var currentCell = checkModel[i].CheckCells[j];
-                    var currentTypeCell = cells[(int)currentCell.x, (int)currentCell.y].Model.TypeSlot;
+                    var currentTypeCell = cells[(int)checkModel[i].CheckCells[x].x, (int)checkModel[i].CheckCells[x].y].Model.TypeSlot;
+
                     if (!countTypeCellInLine.ContainsKey(currentTypeCell))
                         countTypeCellInLine.Add(currentTypeCell, 0);
                     countTypeCellInLine[currentTypeCell] = ++countTypeCellInLine[currentTypeCell];
